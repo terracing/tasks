@@ -7,6 +7,9 @@
     <title>{% block title %}To Do List with Flask{% endblock %}</title>
 </head>
 <body>
+    <header>
+        {% include "navbar.html" %}
+    </header>
     {% block content %}
     {% endblock %}
 </body>
