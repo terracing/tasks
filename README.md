@@ -11,3 +11,7 @@ First task for run Flask Server
 For enable debug mode in Flask
 
 `export FLASK_DEBUG=1`
+
+For setup developer mode in Flask
+
+`export FLASK_ENV=development`
