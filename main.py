@@ -1,6 +1,9 @@
 from flask import Flask, request, make_response, redirect, render_template
+from flask_bootstrap import Bootstrap
+
 
 app = Flask(__name__)
+bootstrap = Bootstrap(app)
 
 todos = ['Drink coffe','Exercise','Program Python','Sleep']
 
