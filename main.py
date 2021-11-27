@@ -1,5 +1,6 @@
-from flask import request, make_response, redirect, render_template, session, flash
 import unittest
+from flask import request, make_response, redirect, render_template, session, flash
+from flask_login import login_required
 
 from app import create_app
 from app.forms import LoginForm
@@ -27,6 +28,7 @@ def index():
 
 
 @app.route('/hello')
+@login_required
 def hello():
     user_ip = session.get('user_ip')
     username = session.get('username')
