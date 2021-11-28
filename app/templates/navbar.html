@@ -3,5 +3,8 @@
     <ul>
         <li><a href="{{ url_for('index') }}">Index</a></li>
         <li><a href="https://flask.palletsprojects.com/en/2.0.x/" target="_blank">Flask Project</a></li>
+        {% if current_user.is_authenticated %}
+            <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+        {% endif %}
     </ul>
 </nav>

@@ -1,14 +1,12 @@
 import unittest
 from flask import request, make_response, redirect, render_template, session, flash
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 from app import create_app
 from app.forms import LoginForm
 from app.firestore_service import get_users, get_todos
 
 app = create_app()
-
-# todos = ['Drink coffe','Exercise','Program Python','Sleep']
 
 
 @app.cli.command()
@@ -31,15 +29,9 @@ def index():
 @login_required
 def hello():
     user_ip = session.get('user_ip')
-    username = session.get('username')
+    username = current_user.id
 
-    context = {'user_ip': user_ip, 'todos': get_todos(username), 'username': username}  
-
-    users = get_users()
-
-    for user in users:
-        print(user.id)
-        print(user.to_dict()['password'])
+    context = {'user_ip': user_ip, 'todos': get_todos(user_id=username), 'username': username}  
 
     return render_template('hello.html', **context)
 
@@ -52,3 +44,4 @@ def not_found(error):
 @app.errorhandler(500)
 def not_found(error):
     return render_template('500.html', error=error)
+
