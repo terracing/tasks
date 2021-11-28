@@ -19,10 +19,19 @@
 {% else %}
     <a href="{{ url_for('index') }}">Go to Index</a>
 {% endif %}
-
-<ul>
-{% for todo in todos %}
-    {{ macros.render_todo(todo) }}
-{% endfor %}
-</ul>
+<div class="row">
+    <div class="col-sm-12">
+        <h2>Create new task</h2>
+        {{ wtf.quick_form(todo_form )}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <ul>
+        {% for todo in todos %}
+            {{ macros.render_todo(todo) }}
+        {% endfor %}
+        </ul>
+    </div>
+</div>
 {% endblock %}
