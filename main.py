@@ -3,8 +3,8 @@ from flask import request, make_response, redirect, render_template, session, fl
 from flask_login import login_required, current_user
 
 from app import create_app
-from app.forms import TodoForm
-from app.firestore_service import get_todos, put_todo
+from app.forms import TodoForm, DeleteTodoForm
+from app.firestore_service import get_todos, put_todo, delete_todo
 
 app = create_app()
 
@@ -31,8 +31,9 @@ def hello():
     user_ip = session.get('user_ip')
     username = current_user.id
     todo_form = TodoForm()
+    delete_todo_form = DeleteTodoForm()
 
-    context = {'user_ip': user_ip, 'todos': get_todos(user_id=username), 'todo_form': todo_form, 'username': username}  
+    context = {'user_ip': user_ip, 'todos': get_todos(user_id=username), 'todo_form': todo_form, 'delete_todo_form': delete_todo_form, 'username': username}  
 
     if todo_form.validate_on_submit():
         put_todo(user_id = username, description = todo_form.description.data)
@@ -42,6 +43,14 @@ def hello():
         return redirect(url_for('hello'))
 
     return render_template('hello.html', **context)
+
+
+@app.route('/todos/delete/<todo_id>', methods=['POST'])
+def delete(todo_id):
+    user_id = current_user.id
+    delete_todo(user_id=user_id, todo_id=todo_id)
+
+    return redirect(url_for('hello'))
 
 
 @app.errorhandler(404)
