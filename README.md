@@ -29,3 +29,11 @@ Initialize GPC and log on
 `gcloud init`
 
 `gcloud auth login`
+
+### Deploy for AppEngine
+
+After to create [app.yaml](app.yaml) into console excecute
+
+`gcloud init`
+
+`gcloud app deploy`
